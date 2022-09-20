@@ -59,7 +59,7 @@ get '/categories' do
 end
 
 post '/categories/new' do
-  new_category = Category.new(params[:name])
+  new_category = Category.new(name: params[:name])
   if new_category.save
       new_category.to_json
   else
