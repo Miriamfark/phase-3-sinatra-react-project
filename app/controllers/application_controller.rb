@@ -28,9 +28,15 @@ class ApplicationController < Sinatra::Base
     task.to_json
   end
 
-  patch '/tasks/:id' do
+  get '/tasks/:id' do
     task = Task.find(params[:id])
-    task.update(body_id:params[:body_id])
+    task.to_json
+  end
+
+  patch '/tasks/:id' do
+    
+    task = Task.find(params[:id])
+    task.update(day_id:params[:day_id])
     task.to_json
   end
 
@@ -61,10 +67,13 @@ end
 post '/categories/new' do
   new_category = Category.new(name: params[:name])
   if new_category.save
-      new_category.to_json
+      # new_category.to_json
+      
   else
       { errors: new_category.errors.full_messages }.to_json
 end
+  new_category.to_json
+  puts "new category #{new_category}"
 end
 
 end
