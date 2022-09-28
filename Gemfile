@@ -39,7 +39,8 @@ gem 'cors'
 
 # These gems will only be used when we are running the application locally
 group :development do
-  gem "pry", "~> 0.14.1"
+gem 'pry', '~> 0.14.1'
+gem 'byebug', '~> 11.1', '>= 11.1.3'
 
   # Automatically reload when there are changes
   # https://github.com/alexch/rerun

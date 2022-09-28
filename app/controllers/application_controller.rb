@@ -1,9 +1,9 @@
-require 'pry'
+# require 'pry'
+# require 'byebug'
 
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
-  # Add your routes here
   get "/" do
     { message: "Good luck with your project!" }.to_json
   end
@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
   end
 
   patch '/tasks/:id' do
-    
+    byebug
     task = Task.find(params[:id])
     task.update(day_id:params[:day_id])
     task.to_json
@@ -50,13 +50,10 @@ get '/days/:id' do
   day.to_json
 end
 
-post '/days' do
-  new_day = Day.new(params[:day])
-  if new_day.save
-      new_day.to_json
-  else
-      { errors: new_day.errors.full_messages }.to_json
-  end
+get '/days/today/:id' do
+  day = Day.find(params[:id])
+  todays_tasks = day.tasks
+  todays_tasks.to_json
 end
 
 get '/categories' do
@@ -64,16 +61,21 @@ get '/categories' do
   categories.to_json
 end
 
-post '/categories/new' do
+post '/categories' do
   new_category = Category.new(name: params[:name])
+  categories = Category.all
   if new_category.save
-      # new_category.to_json
+      new_category.to_json
       
   else
       { errors: new_category.errors.full_messages }.to_json
 end
-  new_category.to_json
-  puts "new category #{new_category}"
+end
+
+delete '/categories/:id' do
+  category = Category.find(params[:id])
+  category.destroy
+  category.to_json
 end
 
 end
