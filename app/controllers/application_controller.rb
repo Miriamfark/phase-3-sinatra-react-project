@@ -34,7 +34,6 @@ class ApplicationController < Sinatra::Base
   end
 
   patch '/tasks/:id' do
-    byebug
     task = Task.find(params[:id])
     task.update(day_id:params[:day_id])
     task.to_json
