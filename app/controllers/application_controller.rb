@@ -1,5 +1,5 @@
 # require 'pry'
-# require 'byebug'
+require 'byebug'
 
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
@@ -12,6 +12,7 @@ class ApplicationController < Sinatra::Base
     tasks = Task.all
     tasks.to_json
   end
+
 
   post '/tasks' do
     new_task = Task.new(name:params[:name], minutes:params[:minutes], category_id:params[:category_id])
@@ -46,7 +47,7 @@ end
 
 get '/days/:id' do
   day = Day.find(params[:id])
-  day.to_json
+  day.to_json(include: :tasks)
 end
 
 get '/days/today/:id' do
