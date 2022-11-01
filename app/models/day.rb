@@ -4,8 +4,4 @@ class Day < ActiveRecord::Base
 
     validates :name, presence: true, uniqueness: true
 
-    def add_up_minutes 
-        self.tasks.sum(:minutes)
-    end
-
 end
