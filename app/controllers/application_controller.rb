@@ -36,7 +36,7 @@ class ApplicationController < Sinatra::Base
 
 get '/days' do
   days = Day.all
-  days.to_json
+  days.to_json(include: :tasks)
 end
 
 get '/days/:id' do
